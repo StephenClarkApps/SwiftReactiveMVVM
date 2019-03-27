@@ -1,4 +1,4 @@
-# SwiftReactiveMVVM
+# SwiftReactiveMVVM forked from yarneo/SwiftReactiveMVVM
 A Swift 4 project that leverages Reactive libraries, caching, and object mapping, whilst using the MVVM + Coordinator Architecture
 
 The idea behind this mini-project is to create a good skeleton for developers who want to leverage strong and useful 3rd party libraries to facilitate a Reactive driven app, that uses the Model / View Model / View + Coordinators architecture.
