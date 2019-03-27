@@ -18,7 +18,7 @@ enum NetworkService {
 }
 
 extension NetworkService: TargetType {
-    var baseURL: URL { return URL(string: "https://uinames.com/api")! }
+    var baseURL: URL { return URL(string: "https://uinames.com/api")! } // ? Force unwrapping ?
     var path: String {
         switch self {
         case .fetchUsers(_):

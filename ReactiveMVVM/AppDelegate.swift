@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var coordinator: AppCoordinator!
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func applicationDidFinishLaunching(_ application: UIApplication) {
         // Override point for customization after application launch.
         
         let config = Realm.Configuration(
@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
         })
         Realm.Configuration.defaultConfiguration = config
-
+        
         window = UIWindow()
         let navigationController = UINavigationController()
         window?.rootViewController = navigationController
@@ -37,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.coordinator = coordinator
         
         window?.makeKeyAndVisible()
-        return true
     }
 
 }

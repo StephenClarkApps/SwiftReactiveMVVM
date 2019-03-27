@@ -16,19 +16,20 @@ import SDWebImage
 class UsersViewController: UIViewController, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var userViewModel: UserViewModel!
+    var userViewModel: UserViewModel?
     
     convenience init(viewModel: UserViewModel) {
         self.init()
         self.userViewModel = viewModel
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTable()
     }
     
     func setupTable() {
+        guard let userViewModel = userViewModel else { return }
         self.tableView
             .rx
             .setDelegate(self)
@@ -43,11 +44,11 @@ class UsersViewController: UIViewController, UITableViewDelegate {
                 if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
                     self.tableView.deselectRow(at: selectedRowIndexPath, animated: true)
                 }
-                self.userViewModel.userSelected.onNext(user)
+                userViewModel.userSelected.onNext(user)
             })
             .disposed(by: userViewModel.disposeBag)
 
-        self.userViewModel.rxUsers
+        userViewModel.rxUsers
             .asDriver()
             .drive(self.tableView.rx.items(cellIdentifier: "UserCell", cellType: UserTableViewCell.self)) { (row, element, cell) in
                 cell.name.text = element.name
@@ -61,9 +62,13 @@ class UsersViewController: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.statusBarStyle = .default
         setupTopNavigationTheme()
     }
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .default
+    }
+    
     
     func setupTopNavigationTheme() {
         self.automaticallyAdjustsScrollViewInsets = false

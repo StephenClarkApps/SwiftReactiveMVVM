@@ -23,7 +23,7 @@ class AppCoordinator {
         
         userSelected
             .subscribe(onNext: { user in
-                let viewController = self.storyboard.instantiateViewController(withIdentifier: "UserDetailsViewController") as! UserDetailsViewController
+                guard let viewController = self.storyboard.instantiateViewController(withIdentifier: "UserDetailsViewController") as? UserDetailsViewController else { return }
                 viewController.user = user
                 self.navigationController?.pushViewController(viewController, animated: true)
             }).disposed(by: disposeBag)
@@ -33,7 +33,7 @@ class AppCoordinator {
     
     func start() {
         let viewModel = UserViewModel()
-        let viewController = storyboard.instantiateViewController(withIdentifier: "UsersViewController") as! UsersViewController
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: "UsersViewController") as? UsersViewController else { return }
         viewController.userViewModel = viewModel
         
         viewModel.userSelected.asObservable()

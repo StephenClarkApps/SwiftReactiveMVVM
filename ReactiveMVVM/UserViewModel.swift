@@ -26,13 +26,12 @@ class UserViewModel {
         return self.provider.rx
             .request(.fetchUsers(amount: API.amount))
             .mapArray(User.self)
-            .do(onNext: { users in
-//                if let u = users.users {
-//                    try! self.realm.write {
-//                        self.realm.add(u, update: true)
-//                    }
-//                }
+            .do(onSuccess: { users in
+                // How is stuff being stored to realm (added this back and see stuff in the realm browser)
                 self.users = users
+                try! self.realm.write {
+                    self.realm.add(self.users, update: true)
+                }
                 self.rxUsers.value = self.users
             })
     }

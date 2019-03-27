@@ -18,11 +18,14 @@ class UserDetailsViewController: UIViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
 
     var user: User?
-    var disposeBag: DisposeBag! = DisposeBag()
+    var disposeBag = DisposeBag()
+    
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .lightContent
 
         if let imageURL = self.user?.photo {
             imageView.sd_setImage(with: URL(string: imageURL))
@@ -47,9 +50,9 @@ class UserDetailsViewController: UIViewController, UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         setupTopNavigationTheme()
     }
+    
 
     func setupTopNavigationTheme() {
-        UIApplication.shared.statusBarStyle = .lightContent
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.shadowImage = UIImage()
